@@ -1,0 +1,27 @@
+body .kontak {
+  padding-top: 80px;
+}
+
+body .kontak .container-fluid {
+  color: rgb(58, 58, 58);
+  height: 100vh;
+  background-color: #a11717;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body .kontak .container-fluid .row .col {
+  border-radius: 1rem;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+body .kontak .container-fluid .row .col p {
+  margin: 0;
+}
+
+body .kontak .container-fluid .row .col .image {
+  width: 200px;
+}

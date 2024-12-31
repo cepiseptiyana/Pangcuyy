@@ -1,0 +1,44 @@
+footer {
+  padding-top: 1.5rem;
+}
+
+footer .containerr {
+  background-color: #212121;
+  color: white;
+}
+
+footer .containerr h1 {
+  font-family: courier;
+  font-size: 1.7rem;
+  margin: 0;
+  text-align: center;
+}
+
+footer .containerr .sosmed {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  text-align: center;
+}
+
+footer .containerr .sosmed a {
+  text-decoration: none;
+}
+
+footer .containerr .sosmed a:nth-child(1) {
+  color: red;
+}
+
+footer .containerr .sosmed a:nth-child(2) img {
+  width: 50px;
+}
+
+footer .containerr p {
+  margin: 0;
+  padding-top: 7px;
+  text-align: center;
+}
+
+footer .containerr .Copyright {
+  font-size: 13px;
+}

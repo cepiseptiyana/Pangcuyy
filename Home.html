@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- meta name wajib untuk media query -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pangcuy</title>
+    <link rel="stylesheet" href="static/styleHome.css" />
+    <link rel="stylesheet" href="static/footer.css" />
+    <link rel="stylesheet" href="static/responsive.css" />
+
+    <!-- Alpine js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container-body">
+      <nav class="navbar navbar-expand-lg" x-data>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img class="logo" src="static/logoPangcuy.png"
+          /></a>
+          <a href="#" id="shopping-cart-btn">
+            <i data-feather="shopping-cart"></i>
+            <span
+              class="quantity-badge"
+              x-show="$store.cart.quantity"
+              x-text="$store.cart.quantity"
+            ></span>
+          </a>
+
+          <!-- ambil data produk dari array items di order.js -->
+          <!-- ! x-show="$store.cart.items.length" jika length == 0 maka false -->
+          <div class="keranjangSlide">
+            <template x-for="(item,index) in $store.cart.items" x-keys="index">
+              <!-- data keranjang -->
+              <div class="items">
+                <img :src="`${item.image}`" alt="" />
+                <div class="text">
+                  <h1 x-text="item.name"></h1>
+                  <!-- times == x -->
+                  <span x-text="rupiah(item.price)"></span> &times;
+                  <!-- minus == - -->
+                  <button id="remove" @click="$store.cart.remove(item.id)">
+                    &minus;
+                  </button>
+                  <span x-text="item.quantity"></span>
+                  <!-- plus == + -->
+                  <!-- equals == = -->
+                  <!-- ketika di klik jalankan method add() -->
+                  <button id="add" @click="$store.cart.add(item)">
+                    &plus;
+                  </button>
+                  &equals;
+                  <span x-text="rupiah(item.total)"></span>
+                </div>
+                <!-- <a href="">
+              <i data-feather="trash-2"></i>
+            </a> -->
+              </div>
+            </template>
+            <h3 x-show="!$store.cart.items.length">Cart Is Empty</h3>
+            <hr x-show="!$store.cart.items.length" />
+            <h4 x-show="$store.cart.items.length">
+              Total : <span x-text="rupiah($store.cart.total)"></span>
+            </h4>
+
+            <div class="form-container pt-5" x-show="$store.cart.items.length">
+              <form action="" id="checkoutForm">
+                <!-- ! data items hidden -->
+                <input
+                  type="hidden"
+                  name="items"
+                  x-model="JSON.stringify($store.cart.items)"
+                />
+                <!-- ! data total hidden -->
+                <input type="hidden" name="total" x-model="$store.cart.total" />
+                <h5 style="text-align: center">Customer Detail</h5>
+                <hr />
+                <h6>Wajib Isi Data Sebelum Order</h6>
+
+                <label for="name">
+                  <span>Name</span>
+                  <input
+                    class="form-control me-2"
+                    placeholder="isi Nama Anda"
+                    type="text"
+                    id="name"
+                    name="name"
+                  />
+                </label>
+
+                <label for="noHp">
+                  <span>No.Hanphone</span>
+                  <!--  autocomplete="off" == supaya ga bisa liat -->
+                  <input
+                    class="form-control me-2"
+                    type="number"
+                    id="noHp"
+                    name="noHp"
+                    placeholder="isi noHp Anda"
+                    autocomplete="off"
+                  />
+                </label>
+                <button
+                  class="btn bg-success checkout-button disabled"
+                  type="submit"
+                  id="checkout-button"
+                  value="checkout"
+                >
+                  Order
+                </button>
+              </form>
+            </div>
+          </div>
+          <button
+            class="navbar-toggler buttonMenu"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse slidebar"
+            id="navbarSupportedContent"
+          >
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="Home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="produk.html">Produk</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="kontak.html">Kontak</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- jumbotron  -->
+      <section class="jumbo">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg colomn-1">
+              <a class="iconleftFeater">
+                <i
+                  data-feather="chevron-left"
+                  style="cursor: pointer; width: 50px; height: 50px"
+                ></i>
+              </a>
+              <img class="imageJumbo" src="static/pangsit2.png" />
+              <a class="iconRigthFeater">
+                <i
+                  data-feather="chevron-right"
+                  style="cursor: pointer; width: 50px; height: 50px"
+                ></i>
+              </a>
+            </div>
+            <div class="col-lg colomn-2">
+              <div>
+                <h1 class="textHeadJumbo">pangsit</h1>
+                <p class="textJumbo">
+                  "makanan yang dibuat dengan membungkus daging cincang dalam
+                  selembar adonan yang terbuat dari tepung. Pangsit sendiri
+                  merupakan salah satu kuliner Tionghoa yang dianggap
+                  representatif karna isiannya memiliki makna budaya"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content-1 -->
+      <section class="content-1" id="content-1">
+        <div class="containerr">
+          <h1>pangcuy we are open</h1>
+          <h2>11:00 AM - 23:00 PM</h2>
+          <br />
+          <h3>siapa nih yang belum cobain pangcuy</h3>
+          <h3>yuk buruan di order bisa makan di tempat juga lohh..</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path
+              fill="#fff"
+              fill-opacity="1"
+              d="M0,128L48,154.7C96,181,192,235,288,229.3C384,224,480,160,576,144C672,128,768,160,864,154.7C960,149,1056,107,1152,106.7C1248,107,1344,149,1392,170.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            ></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Content-2 -->
+      <section class="content-2" id="content-2">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h1>yuk order</h1>
+                <hr />
+              </div>
+            </div>
+            <div class="row baris-2" x-data="products">
+              <template x-for="(item,index) in items" x-key="index">
+                <div class="col">
+                  <div class="card">
+                    <img
+                      :src="`${item.image}`"
+                      class="card-img-top"
+                      alt="gaambarYey"
+                      name="image"
+                    />
+                    <div class="card-body">
+                      <h3 class="card-title" x-text="item.name"></h3>
+                      <p class="card-text" x-text="item.text"></p>
+                      <hr />
+                      <h5 name="harga" x-text="rupiah(item.price)"></h5>
+                      <!-- <button>order</button> -->
+                      <a
+                        href="#"
+                        @click.prevent="$store.cart.add(item)"
+                        class="btn btn-primary"
+                        id="btn-order"
+                        >Yuk order</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div class="containerr">
+        <h1>PANGCUY</h1>
+        <p>Pangsit Ayam Cihuy</p>
+        <hr />
+        <div class="sosmed">
+          <a href="https://www.instagram.com/pangcuy_/">
+            <i data-feather="instagram" style="cursor: pointer"></i>
+            <p>@pangcuy_</p>
+          </a>
+          <a href="https://www.tiktok.com/@pangsitayamcihuy">
+            <img src="static/icontiktok.png" alt="" />
+            <p>@PANGCUY</p>
+          </a>
+        </div>
+        <p class="Copyright">
+          Copyright <span>&#169;</span> 2024 Pangcuy&#174;
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      feather.replace();
+    </script>
+    <script src="static/jumbotron.js"></script>
+    <script src="static/navbarJS/navbar.js"></script>
+    <script src="static/controller/order.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
