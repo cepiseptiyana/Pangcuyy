@@ -220,7 +220,7 @@ checkoutButton.addEventListener("click", function (e) {
   const message = formatMessage(objData);
   // ! kirim ke WHATSAPP
   window.open(
-    `https://wa.me/6285778444589?text=${encodeURIComponent(message)}`
+    `https://wa.me/6285859519463?text=${encodeURIComponent(message)}`
   );
   console.log(message);
 });
